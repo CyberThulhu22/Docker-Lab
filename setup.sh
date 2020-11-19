@@ -57,7 +57,12 @@ docker pull $tfapi
 
 while [ $CHOICE != "quit" ]; do
 	
-	
+	printf "Here is the List of applications to pentest:\n\n"
+    printf "\t1.\t $(echo $juice| cut -d'/' -f2)\n"
+    printf "\t2.\t $(echo $meta2| cut -d'/' -f2)\n"
+    printf "\t3.\t $(echo $wdvwa| cut -d'/' -f2)\n"
+    printf "\t4.\t $(echo $hackz| cut -d'/' -f2)\n"
+    printf "\t5.\t $(echo $tfapi| cut -d'/' -f2)\n"
 	read "What application would you like to choose?: " CHOICE
 	
 	# Starts Juice Shop
@@ -128,32 +133,3 @@ while [ $CHOICE != "quit" ]; do
 	
 	
 done
-
-
-
-printf  "#################HOW TO START THESE APPS ########################\n"
-printf  "Starting Juice Shop"
-printf  "docker run -it -d bkimminich/juice-shop /bin/bash"
-printf  "docker run -it -d docker pull tleemcjr/metasploitable2"
-printf  "docker run -it -d vulnerables/web-dvwa"
-printf  "docker run -it -d mutzel/all-in-one-hackazon"
-printf  "docker run -it -d tuxotron/tiredful-api"
-
-
-# STEPS TO INSTALLING THE SOFTWARE! 
-printf  "Your container is now running..\n"
-printf  "Let's provision your software in the container\n\n\n\n\n"
-
-printf  " #################### STEPS TO PROVISIONING ########################\n"
-printf  " Step 1 - Connect to your container with the following commands --------------> docker attach hacklab <--------------------\n"
-printf  " Step 2 - Provision your software                               --------------> ./provision.sh <---------------------------\n"
-printf  " Step 3 - Test once the install is complete.                    --------------> msfconsole     <---------------------------\n"
-printf  " If step 3 is successful... badass. You lab is now setup!"
-
-
-printf " Here is a list of your docker containers\n\n"
-printf " ######################## DOCKER USAGE QUICKSTART ###############################\n\n"
-printf " List your images                         ------> docker image ls \n"
-printf " List your containers                     ------> docker container ls \n"
-printf " Start a container in the background      ------> docker run -it -d --<container_name> /bin/bash\n"
-printf " Login to your container                  ------> docker attach <container_name>\n"
