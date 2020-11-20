@@ -57,79 +57,89 @@ docker pull $tfapi
 
 while [ $CHOICE != "quit" ]; do
 	
-	printf "Here is the List of applications to pentest:\n\n"
-    printf "\t1.\t $(echo $juice| cut -d'/' -f2)\n"
-    printf "\t2.\t $(echo $meta2| cut -d'/' -f2)\n"
-    printf "\t3.\t $(echo $wdvwa| cut -d'/' -f2)\n"
-    printf "\t4.\t $(echo $hackz| cut -d'/' -f2)\n"
-    printf "\t5.\t $(echo $tfapi| cut -d'/' -f2)\n"
-	read "What application would you like to choose?: " CHOICE
+	clear
 	
+	printf "Here is the List of applications to pentest:\n\n"
+	printf "\t1.\t $(echo $juice| cut -d'/' -f2)\n"
+	printf "\t2.\t $(echo $meta2| cut -d'/' -f2)\n"
+	printf "\t3.\t $(echo $wdvwa| cut -d'/' -f2)\n"
+	printf "\t4.\t $(echo $hackz| cut -d'/' -f2)\n"
+	printf "\t5.\t $(echo $tfapi| cut -d'/' -f2)\n\n"
+	printf "\tquit\t Quits the program."
+
+	printf "What application would you like to choose?: "
+	read CHOICE
+ 	if [ $CHOICE == "quit" ]; then
+		CHOICE="quit"
+		break
+	fi
+
 	# Starts Juice Shop
-	if [ $CHOICE -eq "1" ]; do
+	if [ $CHOICE -eq "1" ]; then
         printf  "Starting Juice Shop\n"
         docker run -d --name juice_shop -p 3000:3000 bkimminich/juice-shop 
         printf "Please go to 127.0.0.1:3000\n\n"
         sleep 10
-        read "Press enter when ready to kill and remove container." WAIT
+	printf "Press enter when ready to kill and remove container."
+	read WAIT
         printf "Killing the container..."
         docker kill juice_shop
         printf "Removing container..."
         docker rm -f juice_shop
         
 	# Starts Metasploitable2
-	elif [ $CHOICE -eq "2" ]; do
+	elif [ $CHOICE -eq "2" ]; then
         printf  "Starting Metasploitable 2\n"
-	    docker run -it -d --name Metasploitable tleemcjr/metasploitable2 sh -c "/bin/services.sh && bash"
-		printf "Hopping into Metasploitable 2\n"
-	    docker attach Metasploitable		
-		sleep 10
-        read "Press enter when ready to kill and remove container." WAIT
+	docker run -it -d --name Metasploitable tleemcjr/metasploitable2 sh -c "/bin/services.sh && bash"
+	printf "Hopping into Metasploitable 2\n"
+	docker attach Metasploitable		
+	sleep 10
+        printf "Press enter when ready to kill and remove container."
+	read WAIT
         printf "Killing the container..."
         docker kill Metasploitable
         printf "Removing container..."
         docker rm -f Metasploitable
 
 	# Starts Web DVWA
-	elif [ $CHOICE -eq "3" ]; do
+	elif [ $CHOICE -eq "3" ]; then
 		printf  "Starting DVWA"
         docker run -d --name DVWA -p 81:81 vulnerables/web-dvwa
         printf "Nice.. Go to this address 127.0.0.1/install\n\n"
         sleep 10
-        read "Press enter when ready to kill and remove container." WAIT
+	printf "Press enter when ready to kill and remove container."
+	read WAIT
         printf "Killing the container..."
         docker kill DVWA
         printf "Removing container..."
         docker rm -f DVWA
 
 	# Starts All in One Hackazon
-	elif [ $CHOICE -eq "4" ]; do
-		printf  "Starting Hackazon"
-	    docker run --name hackazon -d -p 80:80 mutzel/all-in-one-hackazon
-	    printf "Please wait about 30 seconds before going to site.."
-	    printf "Nice.. Go this this address 127.0.0.1:80\n\n"
+	elif [ $CHOICE -eq "4" ]; then
+	printf  "Starting Hackazon"
+	docker run --name hackazon -d -p 80:80 mutzel/all-in-one-hackazon
+	printf "Please wait about 30 seconds before going to site.."
+	printf "Nice.. Go this this address 127.0.0.1:80\n\n"
         sleep 10
-        read "Press enter when ready to kill and remove container." WAIT
+        printf "Press enter when ready to kill and remove container."
+	read WAIT
         printf "Killing the container..."
         docker kill hackazon
         printf "Removing container..."
         docker rm -f hackazon
 
 	# Starts Tiredful API
-	elif [ $CHOICE -eq "5" ]; do
+	elif [ $CHOICE -eq "5" ]; then
         printf  "Starting Tiredful API"
         docker run --name Tiredful_API -p 8000:8000 tuxotron/tiredful-api
         printf "Please go to 127.0.0.1:8000"	
         sleep 10
-        read "Press enter when ready to kill and remove container." WAIT
+        printf "Press enter when ready to kill and remove container."
+	read WAIT
         printf "Killing the container..."
         docker kill Tiredful_API
         printf "Removing container..."
         docker rm -f Tiredful_API
 
-	else
-        printf "None of your conditions met the critera."
-    fi
-	
-	
+	fi
 done
